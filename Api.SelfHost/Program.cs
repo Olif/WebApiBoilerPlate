@@ -14,6 +14,7 @@ namespace Api.SelfHost
             const int port = 8080;
             string uri = string.Format("http://localhost:{0}", port);
             
+            // Self-host api. Press any key to exit.
             using (WebApp.Start<Startup>(uri))
             {
                 Console.WriteLine(string.Format("Api in ready on: {0}", uri));

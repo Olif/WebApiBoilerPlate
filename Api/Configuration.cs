@@ -10,7 +10,10 @@ namespace Api
     {
         public static void Register(HttpConfiguration config)
         {
+            // Use attribute routing
             config.MapHttpAttributeRoutes();
+
+            // Default route
             config.Routes.MapHttpRoute(
                 name: "AllCustomers",
                 routeTemplate: "customers",

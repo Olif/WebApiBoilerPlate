@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.SelfHost", "Api.SelfHost\Api.SelfHost.csproj", "{30C32E3C-B7C3-4488-B193-89E0A00EA4E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{F941B13A-98AF-4563-9E85-44A8952FD84B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{0A057746-5936-4E7D-A025-F86E439A6380}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{30C32E3C-B7C3-4488-B193-89E0A00EA4E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30C32E3C-B7C3-4488-B193-89E0A00EA4E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30C32E3C-B7C3-4488-B193-89E0A00EA4E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F941B13A-98AF-4563-9E85-44A8952FD84B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F941B13A-98AF-4563-9E85-44A8952FD84B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F941B13A-98AF-4563-9E85-44A8952FD84B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F941B13A-98AF-4563-9E85-44A8952FD84B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A057746-5936-4E7D-A025-F86E439A6380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A057746-5936-4E7D-A025-F86E439A6380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A057746-5936-4E7D-A025-F86E439A6380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A057746-5936-4E7D-A025-F86E439A6380}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
