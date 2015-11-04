@@ -1,4 +1,6 @@
-﻿using Owin;
+﻿using Microsoft.Owin;
+using Microsoft.Owin.Security.OAuth;
+using Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +11,21 @@ namespace Api
 {
     public class Startup
     {
-        public void Configuration(IAppBuilder appBuilder)
+        public void Configuration(IAppBuilder app)
         {
-            HttpConfiguration httpConfiguration = new HttpConfiguration();
-            WebApiConfig.Register(httpConfiguration);
-            appBuilder.UseWebApi(httpConfiguration);
+            HttpConfiguration config = new HttpConfiguration();
+            WebApiConfig.Register(config);
+
+            app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions() { 
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(24),
+                AllowInsecureHttp = true,
+                Provider = new SimpleAuthorizationServerProvider(),
+                TokenEndpointPath = new PathString("/api/token")
+            });
+
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions() { });
+
+            app.UseWebApi(config);
         }
     }
 }
