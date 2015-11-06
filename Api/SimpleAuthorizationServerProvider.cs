@@ -11,11 +11,11 @@ namespace Api
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        private readonly UserAccountRepository _userAccountRepo;
+        private readonly IUnitOfWork _uow;
 
         public SimpleAuthorizationServerProvider()
         {
-            _userAccountRepo = new UserAccountRepository();
+            _uow = new EFUnitOfWork(new SystemContext());
         }
 
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
@@ -27,7 +27,7 @@ namespace Api
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             // Try get the useraccount by provided username
-            var userAccount = await _userAccountRepo.GetAsync(context.UserName);
+            var userAccount = _uow.UserAccountRepository.Get(context.UserName);
 
             // If the useraccount was not found, reject the token request
             if (userAccount == null)
