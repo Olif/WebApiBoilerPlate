@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace Api.Controllers
 {
@@ -19,6 +20,8 @@ namespace Api.Controllers
         }
 
         [Route("")]
+        [ResourceAuthorize("View", "User")]
+        [ResourceAuthorize("Edit", "User")]
         public IHttpActionResult Get()
         {
             var users = _uow.UserAccountRepository.Find();

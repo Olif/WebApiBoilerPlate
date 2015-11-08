@@ -8,7 +8,7 @@ namespace Entities
 {
     public class Claim
     {
-        public int CLaimId { get; set; }
+        public int ClaimId { get; set; }
 
         public string Type { get; set; }
 

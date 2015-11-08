@@ -10,6 +10,8 @@ using System.Web;
 using System.Web.Http;
 using Autofac.Integration.WebApi;
 using System.Reflection;
+using Api.Security;
+
 namespace Api
 {
     public class Startup
@@ -38,6 +40,8 @@ namespace Api
             });
 
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions() { });
+
+            app.UseResourceAuthorization(new AppAuthorization());   
 
             app.UseWebApi(config);
         }

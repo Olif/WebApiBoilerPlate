@@ -4,6 +4,8 @@ using System.Data.Entity;
 using Entities;
 using System.Collections;
 using System.Linq;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace DAL.IntegrationTests
 {
@@ -23,10 +25,21 @@ namespace DAL.IntegrationTests
         [TestMethod]
         public void UserAccountRepository_Can_Add_Find_And_GetUsers()
         {
-            var newAccount = new UserAccount() {
+            var newAccount = new UserAccount()
+            {
                 Username = "Test",
                 Password = "pass",
-                Salt = "salt"
+                Salt = "salt",
+                Claims = new List<Entities.Claim>() { 
+                    new Entities.Claim() {
+                        Type = ClaimTypes.Role,
+                        Value = "Admin"
+                    },
+                    new Entities.Claim() {
+                        Type = ClaimTypes.Role,
+                        Value = "SysAdmin"
+                    }
+                }
             };
 
             // Can add new user account

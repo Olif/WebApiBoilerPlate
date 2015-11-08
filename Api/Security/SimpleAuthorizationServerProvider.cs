@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Api
+namespace Api.Security
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {

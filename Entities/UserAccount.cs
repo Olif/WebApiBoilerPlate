@@ -15,5 +15,7 @@ namespace Entities
         public string Password { get; set; }
 
         public string Salt { get; set; }
+
+        public virtual ICollection<Claim> Claims { get; set; }
     }
 }
