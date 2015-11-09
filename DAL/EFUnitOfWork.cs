@@ -19,7 +19,6 @@ namespace DAL
             UserAccountRepository = new EFUserAccountRepository(ctx);
         }
 
-
         public void SaveChanges()
         {
             _ctx.SaveChanges();

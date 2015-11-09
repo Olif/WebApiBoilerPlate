@@ -30,12 +30,12 @@ namespace DAL.IntegrationTests
                 Username = "Test",
                 Password = "pass",
                 Salt = "salt",
-                Claims = new List<Entities.Claim>() { 
-                    new Entities.Claim() {
+                Claims = new List<Entities.UserClaim>() { 
+                    new Entities.UserClaim() {
                         Type = ClaimTypes.Role,
                         Value = "Admin"
                     },
-                    new Entities.Claim() {
+                    new Entities.UserClaim() {
                         Type = ClaimTypes.Role,
                         Value = "SysAdmin"
                     }

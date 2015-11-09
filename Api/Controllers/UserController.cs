@@ -9,6 +9,7 @@ using Thinktecture.IdentityModel.WebApi;
 
 namespace Api.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/user")]
     public class UserController : ApiController
     {
@@ -20,7 +21,6 @@ namespace Api.Controllers
         }
 
         [Route("")]
-        [ResourceAuthorize("View", "User")]
         [ResourceAuthorize("Edit", "User")]
         public IHttpActionResult Get()
         {

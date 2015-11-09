@@ -11,6 +11,7 @@ namespace DAL
     public class SystemContext : DbContext
     {
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
+        public virtual DbSet<UserClaim> Claims { get; set; }
 
         public SystemContext() 
             : this("Debug", new CreateDatabaseIfNotExists<SystemContext>())
@@ -26,6 +27,10 @@ namespace DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UserAccount>()
+                .HasMany<UserClaim>(x => x.Claims)
+                .WithRequired();
+
             base.OnModelCreating(modelBuilder);
         }
     }

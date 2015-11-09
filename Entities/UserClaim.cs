@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class Claim
+    public class UserClaim
     {
-        public int ClaimId { get; set; }
+        public int UserClaimId { get; set; }
 
         public string Type { get; set; }
 

@@ -37,7 +37,7 @@ namespace Api.Security
             }
 
             // If password is invalid, reject the token request
-            if (userAccount.Password != context.Password)
+            if (!PasswordHelper.Verify(userAccount.Password, userAccount.Salt, context.Password))
             {
                 context.Rejected();
                 return;

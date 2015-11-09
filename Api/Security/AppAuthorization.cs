@@ -20,15 +20,39 @@ namespace Api.Security
 
         public override async Task<bool> CheckAccessAsync(ResourceAuthorizationContext context)
         {
-            var userAccount = _uow.UserAccountRepository.Get(context.Principal.Identity.Name);
-
             var resource = context.Resource.First().Value;
 
             if(resource == "User")
             {
-                return userAccount.Claims.Any(x => x.Type == System.Security.Claims.ClaimTypes.Role &&
-                    x.Value == "SysAdmin");
+                return await CheckUserAccessAsync(context);
             
+            }
+
+            return await Nok();
+        }
+
+        private async Task<bool> CheckUserAccessAsync(ResourceAuthorizationContext context)
+        {
+            if (!context.Principal.Identity.IsAuthenticated)
+            {
+                return await Nok();
+            }
+
+            if (context.Action.Any(x => x.Value == "Edit"))
+            {
+                return await CheckUserEditAccessByRoleAsync(context);
+            }
+
+            return await Ok();
+        }
+
+        private async Task<bool> CheckUserEditAccessByRoleAsync(ResourceAuthorizationContext context)
+        {
+            var user = _uow.UserAccountRepository.Get(context.Principal.Identity.Name);
+            if (user.Claims.Any(x => x.Type == System.Security.Claims.ClaimTypes.Role &&
+                x.Value == "SystemAdmin"))
+            {
+                return await Ok();
             }
 
             return await Nok();

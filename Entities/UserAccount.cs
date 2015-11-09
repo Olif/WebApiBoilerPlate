@@ -8,6 +8,8 @@ namespace Entities
 {
     public class UserAccount
     {
+        private ICollection<UserClaim> _claims;
+
         public int UserAccountId { get; set; }
 
         public string Username { get; set; }
@@ -16,6 +18,9 @@ namespace Entities
 
         public string Salt { get; set; }
 
-        public virtual ICollection<Claim> Claims { get; set; }
+        public virtual ICollection<UserClaim> Claims {
+            get { return _claims ?? (_claims = new List<UserClaim>()); }
+            set { _claims = value; }
+        }
     }
 }
