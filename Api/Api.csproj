@@ -145,7 +145,7 @@
   <ItemGroup>
     <Compile Include="AppConfig\DIConfig.cs" />
     <Compile Include="Security\AppAuthorization.cs" />
-    <Compile Include="Configuration.cs" />
+    <Compile Include="AppConfig\RouteConfiguration.cs" />
     <Compile Include="Controllers\ForecastController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

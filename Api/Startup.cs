@@ -21,13 +21,10 @@ namespace Api
         {
             HttpConfiguration config = new HttpConfiguration();
 
-            var builder = DIConfig.BuildDependencies();
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            var container = DIConfig.BuildDIContainer();
             
-            var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            
-            WebApiConfig.Register(config);
+            RouteConfiguration.Register(config);
 
             app.UseAutofacMiddleware(container);
 

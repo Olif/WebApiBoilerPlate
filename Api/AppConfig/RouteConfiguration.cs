@@ -6,7 +6,7 @@ using System.Web.Http;
 
 namespace Api
 {
-    public class WebApiConfig
+    public class RouteConfiguration
     {
         public static void Register(HttpConfiguration config)
         {
