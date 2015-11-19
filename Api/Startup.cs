@@ -11,6 +11,7 @@ using System.Web.Http;
 using Autofac.Integration.WebApi;
 using System.Reflection;
 using Api.Security;
+using Api.AppConfig;
 
 namespace Api
 {
@@ -20,11 +21,9 @@ namespace Api
         {
             HttpConfiguration config = new HttpConfiguration();
 
-            var builder = new ContainerBuilder();
-            builder.RegisterType<EFUnitOfWork>().As<IUnitOfWork>();
-            builder.RegisterType<SystemContext>().AsSelf();
-            builder.RegisterType<EFUserAccountRepository>().As<IUserAccountRepository>();
+            var builder = DIConfig.BuildDependencies();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             
