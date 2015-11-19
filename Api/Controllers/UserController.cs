@@ -1,4 +1,5 @@
 ﻿using DAL;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,13 @@ namespace Api.Controllers
         {
             var users = _uow.UserAccountRepository.Find();
             return Ok(users);
+        }
+
+        [Route("exception")]
+        public IHttpActionResult GetException()
+        {
+            throw new Exception();
+            return Ok();
         }
     }
 }

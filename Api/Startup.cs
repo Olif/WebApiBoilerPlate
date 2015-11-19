@@ -12,6 +12,8 @@ using Autofac.Integration.WebApi;
 using System.Reflection;
 using Api.Security;
 using Api.AppConfig;
+using System.Web.Http.ExceptionHandling;
+using Api.Infrastructure;
 
 namespace Api
 {
@@ -25,6 +27,7 @@ namespace Api
             
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             RouteConfiguration.Register(config);
+            config.Services.Replace(typeof(IExceptionHandler), new LoggingExceptionHandler());
 
             app.UseAutofacMiddleware(container);
 
