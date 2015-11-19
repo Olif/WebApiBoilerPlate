@@ -23,13 +23,9 @@ namespace Api
         {
             HttpConfiguration config = new HttpConfiguration();
 
-            var container = DIConfig.BuildDIContainer();
-            
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            RouteConfiguration.Register(config);
-            config.Services.Replace(typeof(IExceptionHandler), new LoggingExceptionHandler());
-
-            app.UseAutofacMiddleware(container);
+            app.SetupFilters(config);
+            app.SetupRoutes(config);
+            app.SetupDependencies(config);
 
             app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions() { 
                 AccessTokenExpireTimeSpan = TimeSpan.FromHours(24),
@@ -43,6 +39,46 @@ namespace Api
             app.UseResourceAuthorization(new AppAuthorization());   
 
             app.UseWebApi(config);
+        }
+    }
+
+    public static class SetupDependenciesExtensions
+    {
+        public static void SetupDependencies(this IAppBuilder app, HttpConfiguration config)
+        { 
+            var builder = new ContainerBuilder();
+            builder.RegisterType<EFUnitOfWork>().As<IUnitOfWork>();
+            builder.RegisterType<SystemContext>().AsSelf();
+            builder.RegisterType<EFUserAccountRepository>().As<IUserAccountRepository>();
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+
+            var container = builder.Build(); 
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            app.UseAutofacMiddleware(container);
+        }
+    }
+
+    public static class SetupFilterExtensions
+    {
+        public static void SetupFilters(this IAppBuilder app, HttpConfiguration config)
+        { 
+            config.Services.Add(typeof(IExceptionLogger), new NLogExceptionLogger());
+        }
+    }
+
+    public static class SetupRoutesExtensions
+    {
+        public static void SetupRoutes(this IAppBuilder app, HttpConfiguration config)
+        {
+            // Use attribute routing
+            config.MapHttpAttributeRoutes();
+
+            // Default route
+            config.Routes.MapHttpRoute(
+                name: "AllCustomers",
+                routeTemplate: "customers",
+                defaults: new { controller = "Customers", action = "Get" }
+                );
         }
     }
 }

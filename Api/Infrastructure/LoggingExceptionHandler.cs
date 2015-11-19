@@ -9,14 +9,13 @@ using System.Web.Http.ExceptionHandling;
 
 namespace Api.Infrastructure
 {
-    public class LoggingExceptionHandler : ExceptionHandler
+    public class NLogExceptionLogger : ExceptionLogger
     {
         private ILogger _logger = LogManager.GetLogger("ExceptionLogger");
 
-        public override Task HandleAsync(ExceptionHandlerContext context, CancellationToken cancellationToken)
+        public override void Log(ExceptionLoggerContext context)
         {
             _logger.Error(context.Exception);
-            return base.HandleAsync(context, cancellationToken);
         }
     }
 }
