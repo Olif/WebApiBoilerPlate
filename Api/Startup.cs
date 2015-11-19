@@ -11,9 +11,10 @@ using System.Web.Http;
 using Autofac.Integration.WebApi;
 using System.Reflection;
 using Api.Security;
-using Api.AppConfig;
 using System.Web.Http.ExceptionHandling;
 using Api.Infrastructure;
+using NLog;
+using Autofac.Core;
 
 namespace Api
 {
@@ -50,6 +51,7 @@ namespace Api
             builder.RegisterType<EFUnitOfWork>().As<IUnitOfWork>();
             builder.RegisterType<SystemContext>().AsSelf();
             builder.RegisterType<EFUserAccountRepository>().As<IUserAccountRepository>();
+            builder.Register(c => LogManager.GetLogger("ApiControllerLogger")).As<ILogger>();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             var container = builder.Build(); 
@@ -57,6 +59,22 @@ namespace Api
             app.UseAutofacMiddleware(container);
         }
     }
+
+    /*public class LoggingModule : Autofac.Module
+    {
+        protected override void AttachToComponentRegistration(
+            IComponentRegistry componentRegistry, IComponentRegistration registration)
+        {
+            registration.Preparing += (sender, e) =>
+            {
+                Type limitType = e.Component.Activator.LimitType;
+                e.Parameters = e.Parameters.Union(new[] {
+                new ResolvedParameter((pi, c) => pi.ParameterType == typeof(ILogger), 
+                                      (pi, c) => c.Resolve<ILogger>(new NamedParameter("name", limitType.Name))),
+            });
+            };
+        }
+    }*/
 
     public static class SetupFilterExtensions
     {

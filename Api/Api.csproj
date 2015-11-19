@@ -147,10 +147,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppConfig\DIConfig.cs" />
-    <Compile Include="Infrastructure\LoggingExceptionHandler.cs" />
+    <Compile Include="Infrastructure\NLogExceptionLogger.cs" />
     <Compile Include="Security\AppAuthorization.cs" />
-    <Compile Include="AppConfig\RouteConfiguration.cs" />
     <Compile Include="Controllers\ForecastController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,14 +11,17 @@ namespace Api.Controllers
     [RoutePrefix("api/forecasts")]
     public class ForecastController : ApiController
     {
-        public ForecastController()
+        private readonly ILogger _logger;
+        
+        public ForecastController(ILogger logger)
         {
-
+            _logger = logger;
         }
 
         [Route("")]
         public IHttpActionResult Get()
         {
+            _logger.Debug("Testing");
             return Ok("forecast");
         }
     }
